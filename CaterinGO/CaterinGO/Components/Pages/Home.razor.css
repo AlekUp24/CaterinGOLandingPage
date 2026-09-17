@@ -179,54 +179,166 @@ h2 em {
     position: relative;
     display: grid;
     min-height: clamp(24rem, 46vw, 31rem);
+    overflow: clip;
+    overflow-clip-margin: 5rem;
     place-items: center;
 }
 
 .sun-shape {
     position: absolute;
+    z-index: 1;
     width: min(24rem, 76vw);
     aspect-ratio: 1;
     border-radius: 48% 52% 50% 50%;
     background: var(--peach-light);
-    transform: rotate(-12deg);
+    transform: translate3d(var(--backdrop-x, 0), var(--backdrop-y, 0), 0) rotate(-12deg);
+    transition: transform .9s cubic-bezier(.2, .8, .2, 1);
+}
+
+.hero-ambient {
+    position: absolute;
+    z-index: 0;
+    width: min(25rem, 82vw);
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(213, 112, 77, .19), rgba(251, 228, 215, .08) 45%, transparent 70%);
+    filter: blur(.35rem);
+    animation: ambient-breathe 9s ease-in-out infinite;
+    pointer-events: none;
+}
+
+.hero-orbit {
+    position: absolute;
+    z-index: 1;
+    border: 1px solid rgba(213, 112, 77, .2);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.hero-orbit-one {
+    width: min(25.5rem, 80vw);
+    height: min(21rem, 66vw);
+    transform: rotate(-22deg);
+    animation: orbit-turn 16s ease-in-out infinite;
+}
+
+.hero-orbit-two {
+    width: min(19rem, 61vw);
+    height: min(26rem, 82vw);
+    border-color: rgba(255, 255, 255, .72);
+    transform: rotate(18deg);
+    animation: orbit-turn 19s ease-in-out infinite reverse;
+}
+
+.hero-spark {
+    position: absolute;
+    z-index: 2;
+    color: rgba(213, 112, 77, .64);
+    font-size: 1rem;
+    line-height: 1;
+    pointer-events: none;
+}
+
+.hero-spark-one {
+    top: 19%;
+    right: 10%;
+    animation: spark-drift 6.5s ease-in-out infinite;
+}
+
+.hero-spark-two {
+    bottom: 14%;
+    left: 12%;
+    color: rgba(118, 107, 99, .42);
+    font-size: .75rem;
+    animation: spark-drift 7.8s ease-in-out infinite reverse;
 }
 
 .phone {
     position: relative;
-    z-index: 1;
-    width: clamp(13.25rem, 24vw, 15.5rem);
-    height: clamp(25.5rem, 46vw, 30rem);
-    padding: .5rem;
-    border: .5rem solid #23211f;
-    border-radius: 2.2rem;
-    background: #23211f;
-    box-shadow: 1.4rem 1.8rem 0 rgba(44, 37, 31, .1), 0 1.8rem 3rem rgba(44, 37, 31, .16);
-    transform: rotate(7deg);
+    z-index: 3;
+    width: clamp(13rem, 23.5vw, 15.15rem);
+    height: clamp(25.5rem, 45vw, 29.35rem);
+    padding: .28rem;
+    border: .18rem solid #302f2e;
+    border-radius: 2.82rem;
+    background: linear-gradient(105deg, #6d6a66 0%, #252422 7%, #171715 52%, #494640 100%);
+    box-shadow: 1.2rem 1.7rem 0 rgba(44, 37, 31, .07), 0 2rem 3.5rem rgba(44, 37, 31, .22), inset 0 0 0 1px rgba(255, 255, 255, .18);
+    transform: translate3d(var(--phone-x, 0), var(--phone-y, 0), 0) rotate(calc(7deg + var(--phone-rotate, 0deg)));
+    transition: transform .7s cubic-bezier(.2, .8, .2, 1), box-shadow .7s ease;
+    will-change: transform;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .phone:hover {
+        box-shadow: 1.35rem 1.95rem 0 rgba(44, 37, 31, .07), 0 2.35rem 4rem rgba(44, 37, 31, .24), inset 0 0 0 1px rgba(255, 255, 255, .2);
+        --phone-y: -.22rem;
+    }
 }
 
 .phone-screen {
     height: 100%;
     overflow: hidden;
-    border-radius: 1.55rem;
-    padding: 1.05rem .9rem;
+    border-radius: 2.42rem;
+    padding: 1.1rem .9rem;
     background: linear-gradient(165deg, #fffdf9 0%, #fbe3d6 100%);
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .5);
 }
 
-.phone-speaker {
+.phone-island {
     position: absolute;
     z-index: 2;
-    top: .25rem;
+    top: .55rem;
     left: 50%;
-    width: 3.7rem;
-    height: .3rem;
+    width: 4.15rem;
+    height: 1.13rem;
     border-radius: 999px;
-    background: #111;
+    background: linear-gradient(180deg, #080807, #1b1a19);
+    box-shadow: inset 0 .05rem .08rem rgba(255, 255, 255, .12);
     transform: translateX(-50%);
+}
+
+.phone-edge-highlight {
+    position: absolute;
+    top: 1.1rem;
+    bottom: 1.1rem;
+    left: .08rem;
+    width: .08rem;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, .55);
+    opacity: .65;
+}
+
+.phone-side-button {
+    position: absolute;
+    z-index: -1;
+    width: .18rem;
+    border-radius: 999px;
+    background: linear-gradient(90deg, #4c4945, #23211f);
+    box-shadow: 0 .05rem .08rem rgba(0, 0, 0, .18);
+}
+
+.phone-side-button-top {
+    top: 5.5rem;
+    left: -.28rem;
+    height: 1.65rem;
+}
+
+.phone-side-button-bottom {
+    top: 7.65rem;
+    left: -.28rem;
+    height: 2.75rem;
+}
+
+.phone-side-button-power {
+    top: 6.5rem;
+    right: -.28rem;
+    height: 3.5rem;
 }
 
 .screen-top {
     display: flex;
     justify-content: space-between;
+    padding: .05rem .15rem 0;
     color: var(--ink);
     font-size: .48rem;
     font-weight: 800;
@@ -237,7 +349,7 @@ h2 em {
     place-items: center;
     width: 2.3rem;
     height: 2.3rem;
-    margin: 2rem auto 1rem;
+    margin: 2.25rem auto 1rem;
     border-radius: .8rem;
     color: white;
     background: var(--peach-deep);
@@ -319,8 +431,10 @@ h2 em {
     bottom: 3.6rem;
     z-index: 2;
     padding: .85rem 1rem;
-    transform: rotate(-5deg);
+    transform: translate3d(var(--card-x, 0), var(--card-y, 0), 0) rotate(calc(-5deg + var(--card-rotate, 0deg)));
     animation: card-drift 5.2s ease-in-out infinite;
+    transition: transform .7s cubic-bezier(.2, .8, .2, 1), box-shadow .7s ease;
+    will-change: transform;
 }
 
 .floating-card strong {
@@ -879,7 +993,17 @@ h2 {
     }
 
     .phone {
-        transform: rotate(4deg) scale(.88);
+        transform: translate3d(var(--phone-x, 0), var(--phone-y, 0), 0) rotate(calc(4deg + var(--phone-rotate, 0deg))) scale(.88);
+    }
+
+    .hero-orbit-one {
+        width: 20rem;
+        height: 17rem;
+    }
+
+    .hero-orbit-two {
+        width: 15rem;
+        height: 21rem;
     }
 
     .floating-card {
@@ -909,13 +1033,50 @@ h2 {
     }
 
     .phone {
-        transform: rotate(7deg) scale(.88);
+        transform: translate3d(var(--phone-x, 0), var(--phone-y, 0), 0) rotate(calc(7deg + var(--phone-rotate, 0deg))) scale(.88);
     }
 }
 
 /* ----------------------------------
    Animations and accessibility
    ---------------------------------- */
+@keyframes ambient-breathe {
+    0%,
+    100% {
+        opacity: .7;
+        transform: scale(.96);
+    }
+
+    50% {
+        opacity: 1;
+        transform: scale(1.04);
+    }
+}
+
+@keyframes orbit-turn {
+    0%,
+    100% {
+        opacity: .5;
+    }
+
+    50% {
+        opacity: .85;
+    }
+}
+
+@keyframes spark-drift {
+    0%,
+    100% {
+        opacity: .42;
+        transform: translateY(0) rotate(0deg);
+    }
+
+    50% {
+        opacity: .82;
+        transform: translateY(-.4rem) rotate(10deg);
+    }
+}
+
 @keyframes notification-arrival {
     0%,
     15% {
@@ -950,11 +1111,11 @@ h2 {
 @keyframes card-drift {
     0%,
     100% {
-        transform: rotate(-5deg) translateY(0);
+        transform: translate3d(var(--card-x, 0), var(--card-y, 0), 0) rotate(calc(-5deg + var(--card-rotate, 0deg)));
     }
 
     50% {
-        transform: rotate(-3deg) translateY(-.6rem);
+        transform: translate3d(var(--card-x, 0), calc(var(--card-y, 0) - .6rem), 0) rotate(calc(-3deg + var(--card-rotate, 0deg)));
     }
 }
 
@@ -977,5 +1138,20 @@ h2 {
         transition-duration: .01ms !important;
         animation-duration: .01ms !important;
         animation-iteration-count: 1 !important;
+    }
+
+    .hero-ambient,
+    .hero-orbit,
+    .hero-spark,
+    .notification-card,
+    .phone-plate,
+    .floating-card {
+        animation: none !important;
+    }
+
+    .phone,
+    .sun-shape,
+    .floating-card {
+        transition: none !important;
     }
 }
