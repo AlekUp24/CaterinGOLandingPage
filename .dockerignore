@@ -1,0 +1,16 @@
+**/bin/
+**/obj/
+**/.vs/
+**/.vscode/
+**/TestResults/
+.git/
+.gitignore
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+**/appsettings.Local.json
+**/appsettings.*.Local.json
+**/node_modules/
+Dockerfile*
+.dockerignore

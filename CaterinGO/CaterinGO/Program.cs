@@ -3,6 +3,12 @@ using CaterinGO.Components;
 using CaterinGO.Data;
 using Microsoft.EntityFrameworkCore;
 
+var railwayPort = Environment.GetEnvironmentVariable("PORT");
+if (int.TryParse(railwayPort, out var port))
+{
+    Environment.SetEnvironmentVariable("ASPNETCORE_HTTP_PORTS", port.ToString());
+}
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -18,6 +24,13 @@ builder.Services.AddScoped<LanguageState>();
 
 var app = builder.Build();
 
+await using (var scope = app.Services.CreateAsyncScope())
+{
+    var dbContextFactory = scope.ServiceProvider.GetRequiredService<IDbContextFactory<CaterinGoDbContext>>();
+    await using var dbContext = await dbContextFactory.CreateDbContextAsync();
+    await dbContext.Database.MigrateAsync();
+}
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -30,7 +43,10 @@ else
     app.UseHsts();
 }
 app.UseStatusCodePagesWithReExecute("/not-found", createScopeForStatusCodePages: true);
-app.UseHttpsRedirection();
+if (app.Environment.IsDevelopment())
+{
+    app.UseHttpsRedirection();
+}
 
 app.UseAntiforgery();
 
