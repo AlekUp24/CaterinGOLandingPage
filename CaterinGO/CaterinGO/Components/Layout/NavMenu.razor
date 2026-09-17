@@ -1,0 +1,41 @@
+﻿<header class="site-header">
+    <nav class="site-nav" aria-label="@(LanguageState.Current == "pl" ? "Główna nawigacja" : "Main navigation")">
+        <a class="brand"
+           href="#top"
+           aria-label="CaterinGo — @(LanguageState.Current == "pl" ? "początek strony" : "top of page")">
+            <span class="brand-mark" aria-hidden="true">C</span>
+            <span class="brand-name">Caterin<span>Go</span></span>
+        </a>
+
+        <div class="nav-links">
+            <a href="#jak-dziala">
+                @(LanguageState.Current == "pl" ? "Jak to działa" : "How it works")
+            </a>
+            <a href="#korzysci">
+                @(LanguageState.Current == "pl" ? "Korzyści" : "Benefits")
+            </a>
+            <a class="nav-cta" href="#lista-oczekujacych">
+                @(LanguageState.Current == "pl" ? "Dołącz do listy" : "Join the list")
+            </a>
+        </div>
+
+        <div class="language-switcher"
+             role="group"
+             aria-label="@(LanguageState.Current == "pl" ? "Wybór języka" : "Language selection")">
+            <button class="language-button @(LanguageState.Current == "pl" ? "active" : string.Empty)"
+                    type="button"
+                    aria-pressed="@(LanguageState.Current == "pl")"
+                    @onclick='() => SetLanguageAsync("pl")'>
+                PL
+            </button>
+            <span aria-hidden="true">/</span>
+            <button class="language-button @(LanguageState.Current == "en" ? "active" : string.Empty)"
+                    type="button"
+                    aria-pressed="@(LanguageState.Current == "en")"
+                    @onclick='() => SetLanguageAsync("en")'>
+                EN
+            </button>
+        </div>
+    </nav>
+</header>
+

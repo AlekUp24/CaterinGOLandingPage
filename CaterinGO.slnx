@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="CaterinGO/CaterinGO.Client/CaterinGO.Client.csproj" />
+  <Project Path="CaterinGO/CaterinGO/CaterinGO.csproj" />
+</Solution>
