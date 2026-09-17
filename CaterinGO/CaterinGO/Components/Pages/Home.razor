@@ -1,0 +1,275 @@
+﻿@page "/"
+@rendermode InteractiveServer
+
+<PageTitle>@(IsEnglish ? "CaterinGo — never miss lunch" : "CaterinGo — lunch, którego nie przegapisz")</PageTitle>
+
+<NavMenu />
+
+<div id="top" tabindex="-1"></div>
+
+<section class="hero-section" aria-labelledby="hero-title">
+    <div class="hero-copy">
+        <p class="eyebrow">
+            @(IsEnglish ? "Your break. Right on time." : "Twoja przerwa. W samą porę.")
+        </p>
+        <h1 id="hero-title">
+            @(IsEnglish ? "Never miss " : "Nie przegap ")
+            <span>@(IsEnglish ? "the office caterer." : "pana kanapki.")</span>
+        </h1>
+        <p class="hero-lead">
+            @(IsEnglish
+                ? "CaterinGo lets you know when catering arrives at your office. You decide whether to walk over and buy something."
+                : "CaterinGo powiadomi Cię, gdy catering pojawi się w biurze. Ty decydujesz, czy chcesz podejść i coś kupić.")
+        </p>
+        <div class="hero-actions">
+            <a class="button button-primary" href="#lista-oczekujacych">
+                @(IsEnglish ? "Join the waitlist" : "Zapisz się na start")
+                <span aria-hidden="true">↗</span>
+            </a>
+            <a class="text-link" href="#jak-dziala">
+                @(IsEnglish ? "See how it works" : "Zobacz, jak to działa")
+                <span aria-hidden="true">↓</span>
+            </a>
+        </div>
+        <div class="hero-note">
+            <span class="status-dot" aria-hidden="true"></span>
+            @(IsEnglish ? "Coming soon to your office" : "Wkrótce w Twoim biurze")
+        </div>
+        <div class="hero-store-links" aria-label="@(IsEnglish ? "App download options" : "Opcje pobrania aplikacji")">
+            <button class="store-badge store-button-google"
+                    type="button"
+                    style="@StoreButtonStyle("images/google-play-android-app-store.png")"
+                    aria-label="@(IsEnglish ? "Join the CaterinGo waitlist from Google Play" : "Dołącz do listy CaterinGo przez Google Play")"
+                    @onclick="NavigateToWaitList">
+            </button>
+            <button class="store-badge store-button-apple"
+                    type="button"
+                    style="@StoreButtonStyle("images/2-app-store-logo-app.png")"
+                    aria-label="@(IsEnglish ? "Join the CaterinGo waitlist from the App Store" : "Dołącz do listy CaterinGo przez App Store")"
+                    @onclick="NavigateToWaitList">
+            </button>
+        </div>
+    </div>
+
+    <div class="hero-visual" aria-label="Podgląd powiadomienia CaterinGo" role="img">
+        <div class="sun-shape"></div>
+        <div class="phone phone-main">
+            <div class="phone-speaker"></div>
+            <div class="phone-screen">
+                <div class="screen-top">
+                    <span>9:41</span>
+                    <span>● ● ▪</span>
+                </div>
+                <div class="app-mini-mark">C</div>
+                <p class="phone-greeting">
+                    @(IsEnglish ? "Good morning, Alex!" : "Dzień dobry, Aleks!")
+                </p>
+                <div class="notification-card">
+                    <span class="notification-icon">✦</span>
+                    <div>
+                        <strong>@(IsEnglish ? "The caterer is here!" : "Pan Kanapka jest!")</strong>
+                        <small>@(IsEnglish ? "Reception · now" : "Recepcja · teraz")</small>
+                    </div>
+                    <span>›</span>
+                </div>
+                <div class="phone-plate">🥪</div>
+                <p class="phone-caption">
+                    @(IsEnglish ? "Your breakfast is waiting." : "Twoje śniadanie czeka.")
+                </p>
+            </div>
+        </div>
+        <div class="floating-card">
+            <span class="floating-icon">✓</span>
+            <div>
+                <strong>@(IsEnglish ? "Notification" : "Powiadomienie")</strong>
+                <small>@(IsEnglish ? "Never miss lunch again" : "Nie przegapisz już lunchu")</small>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="trust-strip" aria-label="@(IsEnglish ? "CaterinGo at a glance" : "CaterinGo w skrócie")">
+    <span>@(IsEnglish ? "LESS WAITING" : "MNIEJ CZEKANIA")</span>
+    <span>@(IsEnglish ? "ONE CLEAR SIGNAL" : "JEDEN JASNY SYGNAŁ")</span>
+    <span>@(IsEnglish ? "YOUR FAVOURITES, FIRST" : "TWOI ULUBIEŃCY — NAJPIERW")</span>
+</section>
+
+<section class="intro-section" id="jak-dziala" aria-labelledby="intro-title">
+    <div class="section-kicker">
+        01 / @(IsEnglish ? "It really is that simple" : "Prościej się nie da")
+    </div>
+    <div>
+        <h2 id="intro-title">
+            @(IsEnglish ? "Lunch is one notification" : "Lunch dzieli od Ciebie jedno")<br />
+            <em>@(IsEnglish ? "away." : "powiadomienie.")</em>
+        </h2>
+        <p class="section-lead">
+            @(IsEnglish
+                ? "No more wondering if the caterer has arrived. CaterinGo gives you back time and removes the stress of checking for catering yourself."
+                : "Koniec z pytaniem „czy już był?”. CaterinGo daje Ci więcej czasu i zdejmuje stres związany z ciągłym sprawdzaniem, czy catering już przyjechał.")
+        </p>
+    </div>
+</section>
+
+<section class="steps-section" aria-label="@(IsEnglish ? "How CaterinGo works" : "Jak działa CaterinGo")">
+    <article class="step-card">
+        <span class="step-number">01</span>
+        <div class="step-icon">◎</div>
+        <h3>@(IsEnglish ? "Choose your office" : "Wybierz swoje biuro")</h3>
+        <p>@(IsEnglish ? "Tell us where you work so we can show you relevant catering." : "Powiedz nam, gdzie pracujesz, aby zobaczyć interesujący Cię catering.")</p>
+    </article>
+    <article class="step-card step-card-highlight">
+        <span class="step-number">02</span>
+        <div class="step-icon">⌁</div>
+        <h3>@(IsEnglish ? "Catering arrives" : "Dostawca przyjeżdża")</h3>
+        <p>@(IsEnglish ? "A catering company arrives at your office with breakfast or lunch options." : "Firma cateringowa przyjeżdża do biura z ofertą śniadania lub lunchu.")</p>
+    </article>
+    <article class="step-card">
+        <span class="step-number">03</span>
+        <div class="step-icon">✦</div>
+        <h3>@(IsEnglish ? "You get the signal" : "Ty dostajesz sygnał")</h3>
+        <p>@(IsEnglish ? "One notification. No guessing. You decide whether to go and buy something." : "Jedno powiadomienie. Zero zgadywania. Ty decydujesz, czy podejść i coś kupić.")</p>
+    </article>
+</section>
+
+<section class="benefits-section" id="korzysci" aria-labelledby="benefits-title">
+    <div class="benefits-visual">
+        <div class="orbit orbit-one"></div>
+        <div class="orbit orbit-two"></div>
+        <div class="benefit-badge">C</div>
+        <span class="sparkle sparkle-one">✦</span>
+        <span class="sparkle sparkle-two">✧</span>
+    </div>
+    <div class="benefits-copy">
+        <div class="section-kicker">
+            02 / @(IsEnglish ? "Your new ritual" : "Twój nowy rytuał")
+        </div>
+        <h2 id="benefits-title">
+            @(IsEnglish ? "Good things" : "Dobre rzeczy")<br />
+            <em>@(IsEnglish ? "should not wait." : "nie powinny czekać.")</em>
+        </h2>
+        <p class="section-lead">
+            @(IsEnglish
+                ? "From the first coffee to the last bite, CaterinGo makes office catering easier to discover on your terms."
+                : "Od pierwszej kawy do ostatniego kęsa — CaterinGo pomaga odkrywać biurowy catering na Twoich zasadach.")
+        </p>
+        <ul class="benefit-list">
+            <li>
+                <span>01</span>
+                <div>
+                    <strong>@(IsEnglish ? "You know first" : "Wiesz pierwszy")</strong>
+                    <p>@(IsEnglish ? "Get a notification shortly after catering arrives." : "Otrzymujesz powiadomienie chwilę po przyjeździe cateringu.")</p>
+                </div>
+            </li>
+            <li>
+                <span>02</span>
+                <div>
+                    <strong>@(IsEnglish ? "Follow your favourites" : "Wybierasz swoich ulubionych")</strong>
+                    <p>@(IsEnglish ? "Subscribe only to the catering companies that interest you." : "Subskrybuj tylko te firmy cateringowe, które naprawdę Cię interesują.")</p>
+                </div>
+            </li>
+            <li>
+                <span>03</span>
+                <div>
+                    <strong>@(IsEnglish ? "More time, less stress" : "Więcej czasu, mniej stresu")</strong>
+                    <p>@(IsEnglish ? "Stop checking and get on with your day until there is something worth seeing." : "Nie sprawdzaj w kółko — zajmij się swoim dniem, a my damy znać, gdy warto podejść.")</p>
+                </div>
+            </li>
+        </ul>
+    </div>
+</section>
+
+<section class="waitlist-section" id="lista-oczekujacych" aria-labelledby="waitlist-title">
+    <div class="waitlist-inner">
+        <div class="section-kicker">
+            03 / @(IsEnglish ? "Join the list" : "Bądź na liście")
+        </div>
+        <h2 id="waitlist-title">
+            @(IsEnglish ? "Your next lunch" : "Pierwszy lunch")<br />
+            <em>@(IsEnglish ? "is closer than you think." : "jest bliżej, niż myślisz.")</em>
+        </h2>
+        <p class="waitlist-intro">
+            @(IsEnglish ? "Join the waitlist and we will let you know when CaterinGo is available at your office." : "Dołącz do listy oczekujących. Damy Ci znać, gdy CaterinGo będzie dostępne w Twoim biurze.")
+        </p>
+
+        <EditForm Model="WaitListModel" OnValidSubmit="SubmitWaitListAsync" class="waitlist-form" aria-describedby="waitlist-privacy">
+            <DataAnnotationsValidator />
+            <div class="waitlist-field">
+                <label for="waitlist-email">
+                    @(IsEnglish ? "Your email address" : "Twój adres e-mail")
+                </label>
+                <div class="form-row">
+                    <InputText class="waitlist-email"
+                               id="waitlist-email"
+                               name="email"
+                               @bind-Value="WaitListModel.Email"
+                               type="email"
+                               placeholder="@(IsEnglish ? "you@yourcompany.com" : "ty@twojefirma.pl")"
+                               autocomplete="email"
+                               inputmode="email"
+                               disabled="@IsSubmitting" />
+                    <button class="button button-dark"
+                            type="submit"
+                            disabled="@IsSubmitting"
+                            aria-busy="@IsSubmitting">
+                        @(IsSubmitting ? (IsEnglish ? "One moment..." : "Chwileczkę...") : (IsEnglish ? "Sign me up" : "Zapisz mnie"))
+                        <span aria-hidden="true">→</span>
+                    </button>
+                </div>
+                <ValidationMessage For="@(() => WaitListModel.Email)" />
+            </div>
+
+            @if (!string.IsNullOrEmpty(FeedbackMessage))
+            {
+                <p class="form-feedback @(SubmissionFailed ? "form-feedback-error" : string.Empty)"
+                   role="status"
+                   aria-live="polite">
+                    @FeedbackMessage
+                </p>
+            }
+        </EditForm>
+
+        <small id="waitlist-privacy" class="privacy-note">
+            @(IsEnglish ? "No spam. Only important CaterinGo updates." : "Bez spamu. Tylko ważne wieści o CaterinGo.")
+        </small>
+    </div>
+</section>
+
+<footer class="site-footer">
+    <div class="footer-main">
+        <div class="footer-brand-block">
+            <a class="footer-brand" href="#top" aria-label="CaterinGo — @(IsEnglish ? "top of page" : "początek strony")">
+                <span class="brand-mark" aria-hidden="true">C</span>
+                <span class="brand-name">Caterin<span>Go</span></span>
+            </a>
+            <p>@(IsEnglish ? "Lunch you never miss." : "Lunch, którego nie przegapisz.")</p>
+        </div>
+        <nav class="footer-nav" aria-label="@(IsEnglish ? "Footer navigation" : "Nawigacja stopki")">
+            <a href="#jak-dziala">@(IsEnglish ? "How it works" : "Jak to działa")</a>
+            <a href="#korzysci">@(IsEnglish ? "Benefits" : "Korzyści")</a>
+            <a href="#lista-oczekujacych">@(IsEnglish ? "Join the list" : "Dołącz do listy")</a>
+        </nav>
+        <div class="footer-downloads">
+            <span>@(IsEnglish ? "Coming soon on" : "Wkrótce dostępne w")</span>
+            <div class="store-links">
+                <button class="store-button store-button-google"
+                        type="button"
+                        style="@StoreButtonStyle("images/google-play-android-app-store.png")"
+                        aria-label="@(IsEnglish ? "Google Play waitlist link" : "Link do listy oczekujących Google Play")"
+                        @onclick="NavigateToWaitList">
+                </button>
+                <button class="store-button store-button-apple"
+                        type="button"
+                        style="@StoreButtonStyle("images/2-app-store-logo-app.png")"
+                        aria-label="@(IsEnglish ? "App Store waitlist link" : "Link do listy oczekujących App Store")"
+                        @onclick="NavigateToWaitList">
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <small>© @DateTime.Now.Year CaterinGo. @(IsEnglish ? "Made with appetite." : "Zrobione z apetytem.")</small>
+        <span>@(IsEnglish ? "A smarter office lunch break." : "Mądrzejsza przerwa na lunch w biurze.")</span>
+    </div>
+</footer>
+
