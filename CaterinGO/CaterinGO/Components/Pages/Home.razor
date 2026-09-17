@@ -1,6 +1,8 @@
 ﻿@page "/"
 @rendermode InteractiveServer
 
+<script type="module" src="@Assets["Components/Pages/Home.razor.js"]"></script>
+
 <PageTitle>@(IsEnglish ? "CaterinGo — never miss lunch" : "CaterinGo — lunch, którego nie przegapisz")</PageTitle>
 
 <NavMenu />
@@ -51,11 +53,20 @@
         </div>
     </div>
 
-    <div class="hero-visual" aria-label="Podgląd powiadomienia CaterinGo" role="img">
-        <div class="sun-shape"></div>
+    <div class="hero-visual" aria-label="Podgląd powiadomienia CaterinGo" role="img" data-hero-phone>
+        <div class="hero-ambient" aria-hidden="true"></div>
+        <div class="hero-orbit hero-orbit-one" aria-hidden="true"></div>
+        <div class="hero-orbit hero-orbit-two" aria-hidden="true"></div>
+        <span class="hero-spark hero-spark-one" aria-hidden="true">✦</span>
+        <span class="hero-spark hero-spark-two" aria-hidden="true">✧</span>
+        <div class="sun-shape" aria-hidden="true"></div>
         <div class="phone phone-main">
-            <div class="phone-speaker"></div>
+            <div class="phone-edge-highlight" aria-hidden="true"></div>
+            <div class="phone-side-button phone-side-button-top" aria-hidden="true"></div>
+            <div class="phone-side-button phone-side-button-bottom" aria-hidden="true"></div>
+            <div class="phone-side-button phone-side-button-power" aria-hidden="true"></div>
             <div class="phone-screen">
+                <div class="phone-island" aria-hidden="true"></div>
                 <div class="screen-top">
                     <span>9:41</span>
                     <span>● ● ▪</span>
