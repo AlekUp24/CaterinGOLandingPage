@@ -4,13 +4,18 @@ using CaterinGO.Data;
 using Microsoft.EntityFrameworkCore;
 using Npgsql;
 
-var railwayPort = Environment.GetEnvironmentVariable("PORT");
-if (int.TryParse(railwayPort, out var port))
-{
-    Environment.SetEnvironmentVariable("ASPNETCORE_HTTP_PORTS", port.ToString());
-}
-
 var builder = WebApplication.CreateBuilder(args);
+
+// Configure Kestrel to listen on port 8080 for Railway
+var httpPort = Environment.GetEnvironmentVariable("ASPNETCORE_HTTP_PORTS")
+    ?? Environment.GetEnvironmentVariable("PORT")
+    ?? "8080";
+
+builder.WebHost.ConfigureKestrel(options =>
+{
+    options.ListenAnyIP(int.Parse(httpPort));
+});
+
 var configuredConnectionString = builder.Configuration.GetConnectionString("DefaultConnection")
     ?? Environment.GetEnvironmentVariable("DATABASE_URL");
 var connectionString = ConvertPostgresUrlToConnectionString(configuredConnectionString);
@@ -19,7 +24,6 @@ var connectionString = ConvertPostgresUrlToConnectionString(configuredConnection
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents()
     .AddInteractiveWebAssemblyComponents();
-
 builder.Services.AddDbContextFactory<CaterinGoDbContext>(options =>
     options.UseNpgsql(connectionString));
 builder.Services.AddScoped<IWaitingListService, WaitingListService>();
@@ -46,6 +50,7 @@ else
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
+
 app.UseStatusCodePagesWithReExecute("/not-found", createScopeForStatusCodePages: true);
 if (app.Environment.IsDevelopment())
 {
@@ -53,7 +58,6 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseAntiforgery();
-
 app.MapStaticAssets();
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode()
