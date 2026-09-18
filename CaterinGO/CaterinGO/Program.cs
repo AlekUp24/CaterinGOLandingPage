@@ -20,6 +20,13 @@ builder.Services.AddScoped<LanguageState>();
 
 var app = builder.Build();
 
+await using (var scope = app.Services.CreateAsyncScope())
+{
+    var dbContextFactory = scope.ServiceProvider.GetRequiredService<IDbContextFactory<CaterinGoDbContext>>();
+    await using var dbContext = await dbContextFactory.CreateDbContextAsync();
+    await dbContext.Database.MigrateAsync();
+}
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
